@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "9ae1dc1b-b1ad-47f4-9699-8f178a44be2f",
+		"name": "AWSEmployee_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17967804"
+	},
+	"item": [
+		{
+			"name": "Get Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://35.175.186.250:8088/employees/",
+					"protocol": "http",
+					"host": [
+						"35",
+						"175",
+						"186",
+						"250"
+					],
+					"port": "8088",
+					"path": [
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const jsonResponse = pm.response.json();\r",
+							"pm.globals.set(\"emp_id\", jsonResponse.id);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Rohit\");\r",
+							"});\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"firstName\": \"Rohit\",\r\n        \"lastName\": \"Sharma\",\r\n        \"salary\": 12000,\r\n        \"email\": \"rohitsharma@abc.com\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://35.175.186.250:8088/employees",
+					"protocol": "http",
+					"host": [
+						"35",
+						"175",
+						"186",
+						"250"
+					],
+					"port": "8088",
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Rohitnew\");\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"jai\",\r\n    \"lastName\": \"Sharma\",\r\n    \"salary\": 2000000,\r\n    \"email\": \"rohitsharma@abc.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://34.236.158.116:8088/employees/{{emp_id}}",
+					"protocol": "http",
+					"host": [
+						"34",
+						"236",
+						"158",
+						"116"
+					],
+					"port": "8088",
+					"path": [
+						"employees",
+						"{{emp_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get One Employee Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Test Name\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"jai\");\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Your test name not Shaktiman\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).not.to.eql(\"Shaktiman\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://35.175.186.250:8088/employees/{{emp_id}}",
+					"protocol": "http",
+					"host": [
+						"35",
+						"175",
+						"186",
+						"250"
+					],
+					"port": "8088",
+					"path": [
+						"employees",
+						"{{emp_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Body is empty\", function () {\r",
+							"    pm.response.to.have.body(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://35.175.186.250:8088/employees/{{emp_id}}",
+					"protocol": "http",
+					"host": [
+						"35",
+						"175",
+						"186",
+						"250"
+					],
+					"port": "8088",
+					"path": [
+						"employees",
+						"{{emp_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get AllEmployee Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Entity Not Found\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://35.175.186.250:8088/employees/{{emp_id}}",
+					"protocol": "http",
+					"host": [
+						"35",
+						"175",
+						"186",
+						"250"
+					],
+					"port": "8088",
+					"path": [
+						"employees",
+						"{{emp_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OAuthtoken Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse = pm.response.json();\r",
+							"pm.collectionVariables.set(\"access_token\", jsonResponse.access_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "password",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "rest-assured",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "onlyfullstack",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://34.236.158.116:8088/oauth/token",
+					"protocol": "http",
+					"host": [
+						"34",
+						"236",
+						"158",
+						"116"
+					],
+					"port": "8088",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "oauth get call Request",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://34.236.158.116:8088/students/2",
+					"protocol": "http",
+					"host": [
+						"34",
+						"236",
+						"158",
+						"116"
+					],
+					"port": "8088",
+					"path": [
+						"students",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		}
+	]
+}
